@@ -27,6 +27,6 @@ public interface HitRepository extends JpaRepository<Hit, Long> {
             "WHERE e.timestamp BETWEEN :start AND :end " +
             "GROUP BY e.app, e.uri " +
             "ORDER BY COUNT(e.ip) DESC")
-    Collection<HitStat> getStatistic(Timestamp start, Timestamp end, boolean unique);
+    Collection<HitStat> getStatisticWithotUris(Timestamp start, Timestamp end, boolean unique);
 
 }

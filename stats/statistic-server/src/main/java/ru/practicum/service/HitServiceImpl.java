@@ -33,7 +33,7 @@ public class HitServiceImpl implements HitService {
     public Collection<HitStatDto> getStatistic(Timestamp start, Timestamp end, List<String> uris, boolean unique) {
 
         if (uris.size() == 0) {
-            return HitMapper.toCollectionHitStatDto(hitRepository.getStatistic(start, end, unique));
+            return HitMapper.toCollectionHitStatDto(hitRepository.getStatisticWithotUris(start, end, unique));
         } else {
             return HitMapper.toCollectionHitStatDto(hitRepository.getStatistic(start, end, uris, unique));
         }
