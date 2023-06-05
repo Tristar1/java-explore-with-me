@@ -20,4 +20,13 @@ public interface HitRepository extends JpaRepository<Hit, Long> {
             "ORDER BY COUNT(e.ip) DESC")
     Collection<HitStat> getStatistic(Timestamp start, Timestamp end, List<String> uris, boolean unique);
 
+    @Query("SELECT new ru.practicum.entity.HitStat(e.app, e.uri, " +
+            "(CASE when :unique=true then COUNT(DISTINCT e.ip) else COUNT(e.ip) end) " +
+            ") " +
+            "FROM Hit AS e " +
+            "WHERE e.timestamp BETWEEN :start AND :end " +
+            "GROUP BY e.app, e.uri " +
+            "ORDER BY COUNT(e.ip) DESC")
+    Collection<HitStat> getStatistic(Timestamp start, Timestamp end, boolean unique);
+
 }
