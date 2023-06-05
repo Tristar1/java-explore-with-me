@@ -13,7 +13,7 @@ import ru.practicum.dto.*;
 public class StatsClient extends BaseClient {
 
     @Autowired
-    public StatsClient(@Value("${statistic-server.url}") String serverUrl, RestTemplateBuilder builder) {
+    public StatsClient(@Value("http://localhost:8080") String serverUrl, RestTemplateBuilder builder) {
         super(
                 builder
                         .uriTemplateHandler(new DefaultUriBuilderFactory(serverUrl))
