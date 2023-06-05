@@ -34,12 +34,9 @@ public class HitServiceImpl implements HitService {
 
         if (uris.size() == 0) {
             return HitMapper.toCollectionHitStatDto(hitRepository.getStatistic(start, end, unique));
-        }
-
-        else {
+        } else {
             return HitMapper.toCollectionHitStatDto(hitRepository.getStatistic(start, end, uris, unique));
         }
-
     }
 
 }
