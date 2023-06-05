@@ -12,6 +12,6 @@ public class HelloController {
     @GetMapping("/hello")
     public String sayHello() {
         log.info("Публикуем ответ...");
-        return "Добро пожаловать на борт!";
+        return "Добро пожаловать на борт Сервер статистики!";
     }
 }
