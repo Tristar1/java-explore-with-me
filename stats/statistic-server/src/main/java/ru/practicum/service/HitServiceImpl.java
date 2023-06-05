@@ -10,6 +10,7 @@ import ru.practicum.dto.*;
 import ru.practicum.repository.HitRepository;
 
 import java.sql.Timestamp;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 
@@ -25,12 +26,12 @@ public class HitServiceImpl implements HitService {
         hitRepository.save(HitMapper.toHit(hitDto));
         HashMap<String, String> answer = new HashMap<>();
         answer.put("Description", "Информация сохранена");
-        return new ResponseEntity<>(answer, HttpStatus.OK);
+        return new ResponseEntity<>(answer, HttpStatus.CREATED);
     }
 
     @Override
-    public List<HitStatDto> getStatistic(Timestamp start, Timestamp end, List<String> uris, boolean unique) {
-        return hitRepository.getStatistic(start, end, uris, unique);
+    public Collection<HitStatDto> getStatistic(Timestamp start, Timestamp end, List<String> uris, boolean unique) {
+        return HitMapper.toCollectionHitStatDto(hitRepository.getStatistic(start, end, uris, unique));
     }
 
 }

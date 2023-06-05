@@ -57,10 +57,6 @@ public class BaseClient {
         return responseBuilder.build();
     }
 
-    protected <T> ResponseEntity<Object> post(String path, T body) {
-        return post(path, null, body);
-    }
-
     protected <T> ResponseEntity<Object> post(String path, @Nullable Map<String, Object> parameters, T body) {
         return makeAndSendRequest(HttpMethod.POST, path, parameters, body);
     }

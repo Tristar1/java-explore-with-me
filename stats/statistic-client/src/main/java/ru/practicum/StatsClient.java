@@ -12,20 +12,22 @@ import ru.practicum.dto.*;
 @Service
 public class StatsClient extends BaseClient {
 
-    private static final String API_PREFIX = "/hit";
-
     @Autowired
     public StatsClient(@Value("${statistic-server.url}") String serverUrl, RestTemplateBuilder builder) {
         super(
                 builder
-                        .uriTemplateHandler(new DefaultUriBuilderFactory(serverUrl + API_PREFIX))
+                        .uriTemplateHandler(new DefaultUriBuilderFactory(serverUrl))
                         .requestFactory(HttpComponentsClientHttpRequestFactory::new)
                         .build()
         );
     }
 
-    public ResponseEntity<Object> createHit(HitStatDto statDto) {
-        return post("", statDto);
+    public ResponseEntity<Object> createHit(HitDto hitDto) {
+        return post("/hit", null, hitDto);
+    }
+
+    public ResponseEntity<Object> getStat(HitStatRequestDto hitStatRequest) {
+        return post("/stats", null, hitStatRequest);
     }
 
 }

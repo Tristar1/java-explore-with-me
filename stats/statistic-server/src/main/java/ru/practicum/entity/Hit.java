@@ -9,7 +9,7 @@ import javax.persistence.*;
 import java.sql.Timestamp;
 
 @Entity
-@Table(name = "Hits")
+@Table(name = "hits")
 @Data
 @Builder
 @AllArgsConstructor

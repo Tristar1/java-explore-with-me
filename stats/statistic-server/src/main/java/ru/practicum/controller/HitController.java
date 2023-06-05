@@ -9,15 +9,12 @@ import ru.practicum.dto.*;
 import ru.practicum.service.HitService;
 
 import javax.validation.Valid;
-import java.sql.Timestamp;
-import java.util.ArrayList;
+import java.util.Collection;
 import java.util.HashMap;
-import java.util.List;
-import java.util.Set;
 
 @RestController
-@Validated
 @Slf4j
+@Validated
 @RequiredArgsConstructor
 public class HitController {
 
@@ -26,20 +23,15 @@ public class HitController {
     @PostMapping("/hit")
     public ResponseEntity<HashMap<String, String>> create(@Valid @RequestBody HitDto hitDto) {
 
-        log.info("POST EndpointHit {}", hitDto);
-
         return hitService.create(hitDto);
     }
 
-    @GetMapping("/stats")
-    public List<HitStatDto> create(@RequestHeader("start") Timestamp start,
-                                   @RequestHeader("end") Timestamp end,
-                                   @RequestParam("uris") Set<String> uris,
-                                   @RequestParam("unique") boolean unique) {
+    @PostMapping("/stats")
+    public Collection<HitStatDto> getStat(@RequestBody HitStatRequestDto hitStatRequestDto) {
 
-        log.info("GET stats start={}, end={}, uris={}, unique={}", start, end, uris, unique);
+        return hitService.getStatistic(hitStatRequestDto.getStart(), hitStatRequestDto.getEnd(),
+                                        hitStatRequestDto.getUris(), hitStatRequestDto.isUnique());
 
-        return hitService.getStatistic(start, end, new ArrayList<>(uris), unique);
     }
 
 }

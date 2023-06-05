@@ -3,16 +3,21 @@ package ru.practicum.repository;
 import ru.practicum.entity.Hit;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
-import ru.practicum.dto.*;
+import ru.practicum.entity.HitStat;
 
 import java.sql.Timestamp;
+import java.util.Collection;
 import java.util.List;
 
 public interface HitRepository extends JpaRepository<Hit, Long> {
 
-    @Query(value = "select case when ?4=true then count(DISTINCT h.ip)  else count(h.ip) end hits, " +
-            "h.app app, h.uri uri from hits h where h.timestamp between ?1 and ?2 and h.uri in ?3" +
-            "group by uri, app", nativeQuery = true)
-    List<HitStatDto> getStatistic(Timestamp start, Timestamp end, List<String> uris, boolean unique);
+    @Query("SELECT new ru.practicum.entity.HitStat(e.app, e.uri, " +
+            "(CASE when :unique=true then COUNT(DISTINCT e.ip) else COUNT(e.ip) end) " +
+            ") " +
+            "FROM Hit AS e " +
+            "WHERE e.timestamp BETWEEN :start AND :end AND e.uri IN (:uris) " +
+            "GROUP BY e.app, e.uri " +
+            "ORDER BY COUNT(e.ip) DESC")
+    Collection<HitStat> getStatistic(Timestamp start, Timestamp end, List<String> uris, boolean unique);
 
 }
