@@ -38,7 +38,7 @@ public class HitController {
                                           @RequestParam(name = "unique", defaultValue = "false") boolean unique,
                                           HttpServletRequest request) {
 
-        if (start.after(end)) {
+        if (end == null || start == null || start.after(end)) {
             throw new BadRequestException("Start time is after than end Time");
         }
 
