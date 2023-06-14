@@ -32,8 +32,8 @@ public class HitController {
 
 
     @GetMapping("/stats")
-    public Collection<HitStatDto> getStat(@RequestParam("start") Timestamp start,
-                                          @RequestParam("end") Timestamp end,
+    public Collection<HitStatDto> getStat(@RequestParam(value = "start", required = false) Timestamp start,
+                                          @RequestParam(value = "end", required = false) Timestamp end,
                                           @RequestParam(name = "uris", defaultValue = "") List<String> uris,
                                           @RequestParam(name = "unique", defaultValue = "false") boolean unique,
                                           HttpServletRequest request) {
