@@ -32,6 +32,8 @@ public class PrivateEventController {
             @RequestParam(defaultValue = "0") @Min(0) int from,
             @RequestParam(defaultValue = "10") @Min(1) int size) {
 
+        log.info("Private event controller  get with parameters {} {} {}", userId, from, size);
+
         return EventMapper.toEventShortDtoList(
                 eventService.getInitiatorEvents(userId, from, size));
     }
@@ -42,8 +44,9 @@ public class PrivateEventController {
             @PathVariable @Min(0) long userId,
             @RequestBody @Valid NewEventDto eventDto) {
 
+        log.info("Create event {}", eventDto);
         return EventMapper.toEventFullDto(
-                eventService.create(userId, EventMapper.toEvent(eventDto, false)));
+                eventService.create(userId, EventMapper.toEvent(eventDto)));
     }
 
     @GetMapping("{eventId}")
@@ -58,10 +61,10 @@ public class PrivateEventController {
     public EventFullDto updateEvent(
             @PathVariable @Min(0) long userId,
             @PathVariable @Min(0) long eventId,
-            @RequestBody NewEventDto eventDto) {
+            @Valid @RequestBody UpdateEventUserRequest eventDto) {
 
         return EventMapper.toEventFullDto(
-                eventService.update(userId, eventId, EventMapper.toEvent(eventDto, false)));
+                eventService.update(userId, eventId, EventMapper.toEvent(eventDto)));
     }
 
     @GetMapping("/{eventId}/requests")
@@ -78,8 +81,7 @@ public class PrivateEventController {
             @PathVariable @Min(0) long eventId,
             @Valid @RequestBody EventRequestStatusUpdateRequest requestStatusUpdate) {
 
-        return RequestMapper.toEventRequestStatusUpdateResult(
-                requestService.updateStatus(userId, eventId, requestStatusUpdate));
+        return requestService.updateStatus(userId, eventId, requestStatusUpdate);
 
     }
 

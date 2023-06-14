@@ -4,12 +4,12 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import org.hibernate.validator.constraints.Length;
 import ru.practicum.constants.DateTimeFormat;
 import ru.practicum.dto.Category.CategoryDto;
 import ru.practicum.dto.User.UserDto;
 
 import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
 import java.sql.Timestamp;
 
 @Data
@@ -20,7 +20,7 @@ public class EventShortDto {
 
     public Long id;
     @NotNull
-    @Size(min = 20, max = 2000)
+    @Length(min = 20, max = 2000)
     private String annotation;
     @NotNull
     private CategoryDto category;
@@ -31,7 +31,7 @@ public class EventShortDto {
     private UserDto initiator;
     private Boolean paid;
     @NotNull
-    @Size(min = 3, max = 120)
+    @Length(min = 3, max = 120)
     private String title;
     private Integer views;
 

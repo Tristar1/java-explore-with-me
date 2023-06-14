@@ -24,7 +24,7 @@ public class PublicCompilationController {
 
     @GetMapping
     public List<CompilationDto> getCompilations(
-            @RequestParam(required = false) boolean pinned,
+            @RequestParam(required = false, defaultValue = "false") boolean pinned,
             @PositiveOrZero @RequestParam(defaultValue = "0", required = false) @Min(0) int from,
             @Positive @RequestParam(defaultValue = "10", required = false) @Min(1) int size) {
 
@@ -32,12 +32,10 @@ public class PublicCompilationController {
     }
 
     @GetMapping("/{compId}")
-    public CompilationDto getCompilation(@PathVariable("compId") Long compId ){
+    public CompilationDto getCompilation(@PathVariable("compId") Long compId) {
 
         return CompilationMapper.toCompilationDto(compilationService.getCompilationById(compId));
 
     }
-
-
 
 }

@@ -1,11 +1,13 @@
 package ru.practicum.entity;
 
 import lombok.*;
-import org.springframework.boot.autoconfigure.security.SecurityProperties;
 
 import javax.persistence.*;
 import javax.validation.constraints.Future;
 import java.sql.Timestamp;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Objects;
 
 @Entity
 @Table(name = "events")
@@ -13,6 +15,7 @@ import java.sql.Timestamp;
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
+@ToString
 public class Event {
 
     @Id
@@ -23,13 +26,13 @@ public class Event {
     @ManyToOne
     @JoinColumn(name = "category_id", nullable = false)
     private Category category;
-    @Column(nullable = false)
+    @Column(name = "confirmed_requests", nullable = false)
     private Integer confirmedRequests;
-    @Column(nullable = false)
+    @Column(name = "created_on", nullable = false)
     private Timestamp createdOn;
     @Column(nullable = false)
     private String description;
-    @Column(nullable = false)
+    @Column(name = "event_date", nullable = false)
     @Future
     private Timestamp eventDate;
     @ManyToOne
@@ -47,10 +50,43 @@ public class Event {
     @Column(name = "request_moderation", nullable = false)
     private Boolean requestModeration;
     @Enumerated(EnumType.STRING)
-    private State state;
+    private EventState state;
     @Column(nullable = false)
     private String title;
-    @Column(nullable = false)
+    @Transient
     private Integer views;
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+    @JoinColumn(name = "event_id")
+    @Builder.Default
+    @ToString.Exclude
+    private List<EventView> eventViews = new ArrayList<>();
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Event)) return false;
+        Event event = (Event) o;
+        return Objects.equals(annotation, event.annotation)
+                && Objects.equals(category, event.category)
+                && Objects.equals(createdOn, event.createdOn)
+                && Objects.equals(description, event.description)
+                && Objects.equals(eventDate, event.eventDate)
+                && Objects.equals(initiator, event.initiator)
+                && Objects.equals(location, event.location)
+                && Objects.equals(paid, event.paid)
+                && Objects.equals(publishedOn, event.publishedOn)
+                && Objects.equals(title, event.title);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(annotation, category, createdOn, description,
+                eventDate, initiator, location, paid, publishedOn, title);
+    }
+
+    public void addView(EventView view) {
+        eventViews.add(view);
+        view.setEvent(this);
+    }
 
 }

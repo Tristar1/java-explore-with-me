@@ -7,11 +7,14 @@ import java.util.List;
 
 public interface CategoryService {
 
-    Category create (NewCategoryDto category);
+    Category create(NewCategoryDto category);
 
-    List<Category> get (List<Long> ids, Integer from, Integer size);
+    List<Category> getAll(Integer from, Integer size);
 
-    Boolean delete (Long catId);
+    Boolean delete(Long catId);
 
-    Category update (Long catId, NewCategoryDto categoryDto);
+    Category update(Long catId, Category category);
+
+    Category getById(Long catId);
+
 }

@@ -4,6 +4,7 @@ import lombok.*;
 
 import javax.persistence.*;
 import java.sql.Timestamp;
+import java.util.Objects;
 
 @Entity
 @Table(name = "requests")
@@ -11,6 +12,7 @@ import java.sql.Timestamp;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
+@ToString
 public class Request {
 
     @Id
@@ -27,6 +29,22 @@ public class Request {
     private User requester;
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
-    private State status;
+    private RequestState status;
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Request)) return false;
+        Request request = (Request) o;
+        return Objects.equals(created, request.created)
+                && Objects.equals(event, request.event)
+                && Objects.equals(requester, request.requester)
+                && status == request.status;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(created, event, requester, status);
+    }
 
 }

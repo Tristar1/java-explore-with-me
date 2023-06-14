@@ -8,7 +8,7 @@ import java.util.List;
 
 public interface CompilationRepository extends JpaRepository<Compilation, Long> {
 
-    @Query("from Compilation as c where c.pinned = :pinned or true order by c.id")
-    List<Compilation> findCompilationsByPinned(boolean pinned);
+    @Query("from Compilation as c where :pinned is null or c.pinned = :pinned order by c.id")
+    List<Compilation> findCompilationsByPinned(Boolean pinned);
 
 }

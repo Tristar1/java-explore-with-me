@@ -11,9 +11,7 @@ import ru.practicum.mapper.UserMapper;
 import ru.practicum.service.User.UserService;
 
 import javax.validation.Valid;
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
 
 @Validated
 @RestController
@@ -26,26 +24,27 @@ public class UserController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public UserDto create (@RequestBody @Valid NewUserDto newUser) {
+    public UserDto create(@RequestBody @Valid NewUserDto newUser) {
 
+        log.info("Create user {}", newUser);
         return UserMapper.toUserDto(userService.create(newUser));
 
     }
 
     @GetMapping
-    public List<UserDto> getUsers (@RequestParam(name = "ids") Set<Long> ids,
-                                   @RequestParam(name = "from", defaultValue = "0") Integer from,
-                                   @RequestParam(name = "size", defaultValue = "10") Integer size) {
+    public List<UserDto> getUsers(@RequestParam(required = false, name = "ids") List<Long> ids,
+                                  @RequestParam(name = "from", defaultValue = "0") Integer from,
+                                  @RequestParam(name = "size", defaultValue = "10") Integer size) {
 
-        return UserMapper.userListToUserDtoList(userService.get(new ArrayList<>(ids), from, size));
+        return UserMapper.userListToUserDtoList(userService.get(ids, from, size));
 
     }
 
-    @DeleteMapping("/<userId>")
+    @DeleteMapping("/{userId}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public Boolean deleteUser (@PathVariable Long userId) {
+    public void deleteUser(@PathVariable Long userId) {
 
-        return userService.delete(userId);
+        userService.delete(userId);
 
     }
 

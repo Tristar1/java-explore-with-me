@@ -1,6 +1,6 @@
 package ru.practicum.entity;
 
-public enum State {
+public enum RequestState {
 
     CONFIRMED,
     REJECTED,
