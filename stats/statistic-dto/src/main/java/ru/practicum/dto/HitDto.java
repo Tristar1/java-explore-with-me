@@ -25,7 +25,7 @@ public class HitDto {
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private Timestamp timestamp;
 
-    public HitDto (HttpServletRequest httpServletRequest, String app) {
+    public HitDto(HttpServletRequest httpServletRequest, String app) {
         this.app = app;
         this.ip = httpServletRequest.getRemoteAddr();
         this.uri = httpServletRequest.getRequestURI();
