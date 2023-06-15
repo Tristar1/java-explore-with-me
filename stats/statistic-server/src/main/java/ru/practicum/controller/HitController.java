@@ -5,6 +5,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
+import ru.practicum.Error.BadRequestException;
 import ru.practicum.dto.*;
 import ru.practicum.service.HitService;
 
@@ -31,11 +32,15 @@ public class HitController {
 
 
     @GetMapping("/stats")
-    public Collection<HitStatDto> getStat(@RequestParam("start") Timestamp start,
-                                          @RequestParam("end") Timestamp end,
+    public Collection<HitStatDto> getStat(@RequestParam(value = "start", required = false) Timestamp start,
+                                          @RequestParam(value = "end", required = false) Timestamp end,
                                           @RequestParam(name = "uris", defaultValue = "") List<String> uris,
                                           @RequestParam(name = "unique", defaultValue = "false") boolean unique,
                                           HttpServletRequest request) {
+
+        if (end == null || start == null || start.after(end)) {
+            throw new BadRequestException("Start time is after than end Time");
+        }
 
         request.getParameterMap();
         log.info("GET stats start={}, end={}, uris={}, unique={}", start, end, uris, unique);
