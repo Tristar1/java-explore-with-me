@@ -79,7 +79,7 @@
 							"    pm.expect(target.id).to.not.be.null;\r",
 							"    pm.expect(pm.collectionVariables.get(\"uid\")).equal(target.author.id, 'ID пользователя должен соответствовать ID автора в комментарии');\r",
 							"    pm.expect(pm.collectionVariables.get(\"eid\")).equal(target.event.id, 'ID события должен соответствовать ID события в комментарии');\r",
-							"    pm.expect(source.comment).equal(target.comment, 'Комментарий должен соответствовать отправленному в запросе');\r",
+							"    pm.expect(source.text).equal(target.text, 'Комментарий должен соответствовать отправленному в запросе');\r",
 							"});\r",
 							"\r",
 							""
@@ -212,7 +212,7 @@
 							"    pm.expect(target.id).equal(pm.collectionVariables.get(\"commId\"), 'ID комментария исходника должен соответствовать ID комментария в событии');\r",
 							"    pm.expect(source.author.id).equal(target.author.id, 'ID пользователя должен соответствовать ID автора в комментарии');\r",
 							"    pm.expect(source.event.id).equal(target.event.id, 'ID события должен соответствовать ID события в комментарии');\r",
-							"    pm.expect(target.text).equal(pm.collectionVariables.get(\"newCommentText\"), 'Комментарий содержит обновленный текст');\r",
+							"    pm.expect(target.text).equal(pm.collectionVariables.get('newCommentText'), 'Комментарий содержит обновленный текст');\r",
 							"});"
 						],
 						"type": "text/javascript"
