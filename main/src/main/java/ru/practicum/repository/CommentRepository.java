@@ -22,6 +22,6 @@ public interface CommentRepository extends JpaRepository<Comment, Long> {
 
     Optional<Comment> getByIdAndEventIdAndVisible(Long commId, Long eventId, Boolean visible);
 
-    Optional<Comment>getByIdAndVisible(Long commId, Boolean visible);
+    Optional<Comment> getByIdAndVisible(Long commId, Boolean visible);
 
 }

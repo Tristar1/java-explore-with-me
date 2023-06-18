@@ -38,8 +38,7 @@ public class CommentServiceImp implements CommentService {
         List<Sort.Order> orders = new ArrayList<>();
         if (sort.equalsIgnoreCase("date")) {
             orders.add(Sort.Order.desc("publicationDate"));
-        }
-        else {
+        } else {
             orders.add(Sort.Order.asc("author"));
             orders.add(Sort.Order.desc("publicationDate"));
         }
