@@ -143,20 +143,17 @@
 							"        pm.collectionVariables.set(\"eid\", event.id)\r",
 							"        const commentator = await api.addUser(rnd.getUser());\r",
 							"        pm.collectionVariables.set(\"uid\", commentator.id)\r",
-							"        commentText = rnd.getComment();\r",
 							"    \r",
-							"        const comment = await api.addComment(commentator.id, event.id, commentText);\r",
-							"        const newComment = rnd.getComment();\r",
+							"        const comment = await api.addComment(commentator.id, event.id, rnd.getComment());\r",
 							"        pm.collectionVariables.set(\"commId\", comment.id);\r",
-							"        pm.collectionVariables.set(\"response\", comment);\r",
 							" \r",
-							"        pm.collectionVariables.set(\"newCommentText\", newComment.text);\r",
+							"        const newUpdatedCommentJson = rnd.getComment();\r",
+							"        pm.collectionVariables.set(\"response\", comment);\r",
+							"        pm.collectionVariables.set(\"newCommentText\", newUpdatedCommentJson.text); // Новый текст комментария\r",
 							"\r",
 							"        pm.request.body.update({\r",
 							"            mode: 'raw',\r",
-							"            raw: JSON.stringify({\r",
-							"                text: newComment.text\r",
-							"            }),\r",
+							"            raw: newUpdatedCommentJson,\r",
 							"            options: { raw: { language: 'json' } }\r",
 							"        });\r",
 							"\r",
@@ -193,6 +190,7 @@
 							"    pm.response.to.be.json;\r",
 							"});\r",
 							"\r",
+							"//const source = pm.collectionVariables.get('response');\r",
 							"const target = pm.response.json();\r",
 							"const source = pm.collectionVariables.get('response');\r",
 							"console.log(source)\r",
@@ -208,10 +206,10 @@
 							"\r",
 							"pm.test(\"Данные в ответе должны соответствовать данным в запросе\", function () {\r",
 							"        pm.expect(target.id).to.not.be.null;\r",
-							"    pm.expect(target.id.toString()).equal(pm.collectionVariables.get(\"commId\").toString(), 'ID комментария исходника должен соответствовать ID комментария в событии');\r",
-							"    pm.expect(source.author.id.toString()).equal(target.author.id.toString(), 'ID пользователя должен соответствовать ID автора в комментарии');\r",
-							"    pm.expect(source.event.id.toString()).equal(target.event.id.toString(), 'ID события должен соответствовать ID события в комментарии');\r",
-							"    pm.expect(target.text.toString()).equal(pm.collectionVariables.get('newCommentText').toString(), 'Комментарий содержит обновленный текст');\r",
+							"    pm.expect(target.id).equal(pm.collectionVariables.get(\"commId\"), 'ID комментария исходника должен соответствовать ID комментария в событии');\r",
+							"    pm.expect(source.author.id).equal(target.author.id, 'ID пользователя должен соответствовать ID автора в комментарии');\r",
+							"    pm.expect(source.event.id).equal(target.event.id, 'ID события должен соответствовать ID события в комментарии');\r",
+							"    pm.expect(target.text).equal(pm.collectionVariables.get(\"newCommentText\"), 'Комментарий содержит обновленный текст');\r",
 							"});"
 						],
 						"type": "text/javascript"
@@ -1194,22 +1192,18 @@
 		},
 		{
 			"key": "commentText",
-			"value": "",
+			"value": "text",
 			"type": "string"
 		},
 		{
 			"key": "newCommentText",
-			"value": "",
+			"value": "text",
 			"type": "string"
 		},
 		{
 			"key": "commId",
-			"value": "",
+			"value": "0",
 			"type": "string"
-		},
-		{
-			"key": "comid",
-			"value": ""
 		}
 	]
 }
