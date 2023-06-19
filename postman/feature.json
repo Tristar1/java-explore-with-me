@@ -1,13 +1,13 @@
 {
 	"info": {
 		"_postman_id": "865f91ec-1307-4313-b2d7-58c77a2664ef",
-		"name": "Test Explore With Me - comments",
+		"name": "Explore With Me - comments tests",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
 		"_exporter_id": "24518828"
 	},
 	"item": [
 		{
-			"name": "Создание комментария пользователем",
+			"name": "Создание комментария",
 			"event": [
 				{
 					"listen": "prerequest",
@@ -127,7 +127,7 @@
 			"response": []
 		},
 		{
-			"name": "Правка собственного комментария пользователем",
+			"name": "Правка собственного комментария",
 			"event": [
 				{
 					"listen": "prerequest",
@@ -165,25 +165,6 @@
 							"    }",
 							"};",
 							"",
-							"// try {",
-							"//         const user = await api.addUser(rnd.getUser());",
-							"//         const category = await api.addCategory(rnd.getCategory());",
-							"//         const event = await api.addEvent(user.id, rnd.getEvent(category.id));",
-							"//         pm.collectionVariables.set(\"uid\", user.id);",
-							"//         pm.collectionVariables.set(\"eid\", event.id);",
-							"//         pm.collectionVariables.set(\"response\", event);",
-							"//         pm.request.body.update({",
-							"//             mode: 'raw',",
-							"//             raw: JSON.stringify({",
-							"//                 stateAction: \"CANCEL_REVIEW\"",
-							"//             }),",
-							"//             options: { raw: { language: 'json' } }",
-							"//         });",
-							"//     } catch(err) {",
-							"//         console.error(\"Ошибка при подготовке тестовых данных.\", err);",
-							"//     }",
-							"// };",
-							"",
 							"const interval = setInterval(() => {}, 1000);",
 							"",
 							"setTimeout(async () => ",
@@ -212,7 +193,6 @@
 							"    pm.response.to.be.json;",
 							"});",
 							"",
-							"//const source = pm.collectionVariables.get('response');",
 							"const target = pm.response.json();",
 							"const source = pm.collectionVariables.get('response');",
 							"console.log(source)",
@@ -276,7 +256,7 @@
 			"response": []
 		},
 		{
-			"name": "Получение комментария по id",
+			"name": "Получение комментария по идентификатору",
 			"event": [
 				{
 					"listen": "prerequest",
@@ -375,7 +355,7 @@
 			"response": []
 		},
 		{
-			"name": "Список всех комментариев для события",
+			"name": "Список всех комментариев по событию",
 			"event": [
 				{
 					"listen": "prerequest",
@@ -490,7 +470,7 @@
 			"response": []
 		},
 		{
-			"name": "Все комментарии пользователя",
+			"name": "Все комментарии по пользователю",
 			"event": [
 				{
 					"listen": "prerequest",
@@ -602,7 +582,7 @@
 			"response": []
 		},
 		{
-			"name": "Комментарии пользователя для конкретного события",
+			"name": "Комментарии пользователя по событию",
 			"event": [
 				{
 					"listen": "prerequest",
@@ -710,7 +690,7 @@
 			"response": []
 		},
 		{
-			"name": "Получение комментариев с возможностью фильтрации",
+			"name": "Получение комментариев по фильтрам",
 			"event": [
 				{
 					"listen": "prerequest",
@@ -840,7 +820,7 @@
 			"response": []
 		},
 		{
-			"name": "Удаление собственного комментария для события",
+			"name": "Удаление собственного комментария",
 			"event": [
 				{
 					"listen": "prerequest",
@@ -941,7 +921,7 @@
 			"response": []
 		},
 		{
-			"name": "Удаление любого комментария",
+			"name": "Удаление комментария администратором",
 			"event": [
 				{
 					"listen": "prerequest",
@@ -958,7 +938,7 @@
 							"        pm.collectionVariables.set(\"eid\", event.id)",
 							"        const commentator = await api.addUser(rnd.getUser());",
 							"        pm.collectionVariables.set(\"uid\", commentator.id)",
-							"        commentText = rnd.getComment(); // текст комментария",
+							"        commentText = rnd.getComment(); ",
 							"        const comment = await api.addComment(commentator.id, event.id, commentText);",
 							"        pm.collectionVariables.set(\"comid\", comment.id);",
 							"        pm.collectionVariables.set('response', comment);",
@@ -1036,7 +1016,7 @@
 			"response": []
 		},
 		{
-			"name": "Редактирование любого комментария",
+			"name": "Редактирование комментария администратором",
 			"event": [
 				{
 					"listen": "prerequest",
