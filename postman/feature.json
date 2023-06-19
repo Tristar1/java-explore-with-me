@@ -144,7 +144,7 @@
 							"        const commentator = await api.addUser(rnd.getUser());\r",
 							"        pm.collectionVariables.set(\"uid\", commentator.id)\r",
 							"    \r",
-							"        let comment = await api.addComment(commentator.id, event.id, rnd.getComment());\r",
+							"        const comment = await api.addComment(commentator.id, event.id, rnd.getComment());\r",
 							"        pm.collectionVariables.set(\"commId\", comment.id);\r",
 							" \r",
 							"        let newUpdatedCommentJson = rnd.getComment();\r",
@@ -210,6 +210,7 @@
 							"});\r",
 							"\r",
 							"pm.test(\"Данные в ответе должны соответствовать данным в запросе ID пользователя\", function () {\r",
+							"    pm.expect(target.author).to.have.property('id');\r",
 							"    pm.expect(source.author.id.toString()).equal(target.author.id.toString(), 'ID пользователя должен соответствовать ID автора в комментарии');\r",
 							"});\r",
 							"\r",
@@ -1213,6 +1214,10 @@
 			"key": "commId",
 			"value": "0",
 			"type": "string"
+		},
+		{
+			"key": "comid",
+			"value": ""
 		}
 	]
 }
