@@ -20,7 +20,7 @@ public interface CommentService {
 
     Comment create(NewCommentDto comment);
 
-    Comment update(long commId, UpdateCommentDto comment, Boolean byUser);
+    Comment update(Long commId, UpdateCommentDto comment, Boolean byUser);
 
     void delete(Long userId, Long commId, Boolean byUser);
 

@@ -82,7 +82,7 @@ public class CommentServiceImp implements CommentService {
     }
 
     @Override
-    public Comment update(long commId, UpdateCommentDto comment, Boolean byUser) {
+    public Comment update(Long commId, UpdateCommentDto comment, Boolean byUser) {
 
         Comment receiver = getCommentById(commId);
 
