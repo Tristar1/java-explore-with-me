@@ -46,10 +46,17 @@ public class PublicCommentController {
     }
 
     @GetMapping("/events/{eventId}/{commentId}")
-    public CommentDto getVisibleComment(@PathVariable @Min(0) Long eventId,
-                                        @PathVariable @Min(0) Long commentId) {
+    public CommentDto getVisibleCommentByEvent(@PathVariable @Min(0) Long eventId,
+                                               @PathVariable @Min(0) Long commentId) {
 
         return CommentMapper.toCommentDto(commentService.getCommentByIdAndEventIdVisible(commentId, eventId, true));
+
+    }
+
+    @GetMapping("/{commentId}")
+    public CommentDto getVisibleComment(@PathVariable @Min(0) Long commentId) {
+
+        return CommentMapper.toCommentDto(commentService.getCommentByIdAndVisible(commentId, true));
 
     }
 
